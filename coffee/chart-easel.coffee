@@ -180,14 +180,14 @@ class Graph
     crossDomain: 'true',
     dataType: 'text',
     cache: true
-    }).success( (data) => @parseData(data))
+    }).complete( (data) => @parseData(data.responseText))
 
   # Parse downloaded HTML to extract the data
   parseData: (data) =>
     $(data)
       .find('.common-table tbody tr')
         .each( (index, el) =>
-          # Populate the bar array with data
+         # Populate the bar array with data
           value = parseFloat($(el).find('td.percent').text()).toFixed(2)
           desc = $(el).find('td.text a').text()
           _bars.push(new Bar(value, desc, index, _barOffset, @container))
@@ -227,5 +227,5 @@ class Graph
         .animate()
 
 $(->
-  graph = new Graph($("#graph")[0], 8).loadData('http://www.socialbakers.com/facebook-statistics/')
+  graph = new Graph($("#graph")[0], 8).loadData('html/data.html')
 )
