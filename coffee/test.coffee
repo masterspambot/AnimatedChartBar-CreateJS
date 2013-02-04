@@ -1,1 +1,0 @@
-style="background: #8bd3fc;"
