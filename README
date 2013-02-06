@@ -1,1 +1,1 @@
-Important: In this project CoffeeScript is compiled on a browser. Use compiler to make JavaScript in production.
+Important: In this project CoffeeScript is compiled in a browser. Use CoffeeScript compiler to make JavaScript in production.
