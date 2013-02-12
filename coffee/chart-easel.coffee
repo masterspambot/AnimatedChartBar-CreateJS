@@ -38,12 +38,12 @@ class Preloader
           x: 10+i*25
         },600)
 
-      # Add some simple preloader text
-      preloaderText = new createjs.Text("Loading the data...", "bold 10px Arial", "#4d7a93")
-      preloaderText.textAlign = "center"
-      preloaderText.x = 42.5
-      preloaderText.y = 22
-      @container.addChild(preloaderText, rect)
+    # Add some simple preloader text
+    preloaderText = new createjs.Text("Loading the data...", "bold 10px Arial", "#4d7a93")
+    preloaderText.textAlign = "center"
+    preloaderText.x = 42.5
+    preloaderText.y = 22
+    @container.addChild(preloaderText, rect)
     return @
 
   addToStage: =>
@@ -148,7 +148,7 @@ class Bar
 ## Graph class
 ##################################################
 
-class Graph
+class Chart
   _bars = []
   _barOffset = null
   _barWidth = null
@@ -173,25 +173,21 @@ class Graph
     createjs.Ticker.setFPS(30)
     @tickerListener = createjs.Ticker.addListener(@stage,false)
 
-  # Download data via AJAX
+  # Download JSON data via AJAX
   loadData: (url) =>
     $.ajax({
-    url: url,
-    crossDomain: 'true',
-    dataType: 'text',
-    cache: true
-    }).complete( (data) => @parseData(data.responseText))
+      url: url,
+      dataType: 'json',
+      cache: true
+    }).complete((data) => @parseData(data.responseText))
 
   # Parse downloaded HTML to extract the data
   parseData: (data) =>
-    $(data)
-      .find('.common-table tbody tr')
-        .each( (index, el) =>
-         # Populate the bar array with data
-          value = parseFloat($(el).find('td.percent').text()).toFixed(2)
-          desc = $(el).find('td.text a').text()
-          _bars.push(new Bar(value, desc, index, _barOffset, @container))
-        )
+    data = JSON.parse(data)
+    for item, index in data.items
+      # Populate the bar array with data
+      _bars.push(new Bar(item.value, item.desc, index, _barOffset, @container))
+
     _barWidth = ((@container.width - ((_bars.length - 1) *_barOffset)) / _bars.length)
 
     # Remove preloader and draw the graph
@@ -227,5 +223,5 @@ class Graph
         .animate()
 
 $(->
-  graph = new Graph($("#graph")[0], 8).loadData('html/data.html')
+  new Chart($("#graph")[0], 8).loadData('json/data.json')
 )
