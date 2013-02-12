@@ -108,7 +108,7 @@ class Bar
     _desc.textAlign = "right"
     _desc.rotation = -45
     _desc.x = @barNumber * (barWidth + _offset) - 5
-    _desc.y = -5
+    _desc.y = 5
     _desc.alpha = 0
     createjs.Tween.get(_desc)
       .wait(@barNumber * 200 + 500)
