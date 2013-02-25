@@ -10,7 +10,6 @@ class Preloader
     @container = new createjs.Container()
     @container.x = @stage.canvas.width / 2 - 65
     @container.y  = @stage.canvas.height / 2 - 20
-    return @
 
   initialize: =>
     for i in [0...3]
@@ -74,7 +73,6 @@ class Bar
 
     @barContainer = new createjs.Container()
     @barContainer.y = @stage.height - 39
-    return @
 
   initialize: (barMaxHeight, barWidth) =>
     # Create the front of the bar
