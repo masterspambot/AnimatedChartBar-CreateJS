@@ -10,7 +10,6 @@ class Preloader
     @container = new createjs.Container()
     @container.x = @stage.canvas.width / 2 - 65
     @container.y  = @stage.canvas.height / 2 - 20
-    return @
 
   initialize: =>
     for i in [0...3]
@@ -74,7 +73,6 @@ class Bar
 
     @barContainer = new createjs.Container()
     @barContainer.y = @stage.height - 39
-    return @
 
   initialize: (barMaxHeight, barWidth) =>
     # Create the front of the bar
@@ -108,7 +106,7 @@ class Bar
     _desc.textAlign = "right"
     _desc.rotation = -45
     _desc.x = @barNumber * (barWidth + _offset) - 5
-    _desc.y = -5
+    _desc.y = 5
     _desc.alpha = 0
     createjs.Tween.get(_desc)
       .wait(@barNumber * 200 + 500)
